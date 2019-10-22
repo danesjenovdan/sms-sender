@@ -4,7 +4,7 @@ const shell = require('shelljs');
 const results = [];
 
 fs.createReadStream('data.csv')
-  .pipe(csv( {separator: '\$'}))
+  .pipe(csv( {separator: ','}))
   .on('data', (data) => results.push(data))
   .on('end', () => {
     console.log(results);
@@ -13,8 +13,8 @@ fs.createReadStream('data.csv')
 
   		return new Promise((resolve, reject) => {
 
-  			shell.env['NUMBER'] = result.NUMBER;
-  			shell.env['CONTENT'] = "'"+result.CONTENT+"'";
+  			shell.env['NUMBER'] = result.phone;
+  			shell.env['CONTENT'] = "'"+result.SMS+"'";
 
   			shell.exec(`${__dirname}/send2.sh`);
 
